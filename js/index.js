@@ -1,23 +1,6 @@
+
 console.log("Called");
-$("#download").click(function () { // detect click even of the download button
-    var timeleft = 1; // set timer 
-    document.getElementById("countdowntimer").textContent = timeleft; // initiate the time
-    var timer = document.getElementById("timer");
-    timer.style.display = "block"; // display the timer div
-    document.getElementById("download").style.display = "none"; // hide the download button
-    var downloadTimer = setInterval(function () {
-        timeleft--; // countdown
-        document.getElementById("countdowntimer").textContent = timeleft; // set time as it reduces
-        if (timeleft <= 0) {
-            clearInterval(downloadTimer);
-            timer.style.display = "none"; // hide the timer to display other info
-            document.getElementById("files_ready").style.display = "block"; // display the files ready div
-            downloadFile();
-        }
 
-    }, 1000);
-
-});
 function downloadFile(uri, name) {
     // To avoid using javascript download that first open, we use html download
     uri = "./files/";
@@ -27,3 +10,33 @@ function downloadFile(uri, name) {
     link.href = uri; // add the href attribute
     link.click(); // click the link to start the download process
 }
+
+$("#download").click(function () {
+    let timerInterval;
+    var timeleft = 4000; // set timer in milliseconds
+    document.getElementById("download").style.display = "none"; // hide the download button
+
+    Swal.fire({
+        title: 'Getting files ready!',
+        html:
+            '<p>The download starts in <strong></strong> seconds</p>.<br/><br/>',
+        timer: timeleft,
+        didOpen: () => {
+            const content = Swal.getHtmlContainer()
+            const $ = content.querySelector.bind(content)
+
+            Swal.showLoading()
+            timerInterval = setInterval(() => {
+                Swal.getHtmlContainer().querySelector('strong')
+                    .textContent = (Swal.getTimerLeft() / 1000)
+                        .toFixed(0)
+            }, 100)
+        },
+        willClose: () => {
+            clearInterval(timerInterval); // close counter
+            document.getElementById("files_ready").style.display = "block"; // display the files ready div
+            downloadFile();
+        }
+    })
+
+});
