@@ -4,7 +4,8 @@ console.log("Called");
 function downloadFile(uri, name) {
     // To avoid using javascript download that first open, we use html download
     uri = "./files/";
-    name = "sample.pdf";
+    // name = "sample.pdf";
+    name = "putty.exe";
     var link = document.createElement("a"); // create an a link
     link.download = name; // add the download attribute
     link.href = uri; // add the href attribute
