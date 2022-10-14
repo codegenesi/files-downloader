@@ -22,11 +22,12 @@ $("#download").click(function () {
         html:
             '<p>The download starts in <strong></strong> seconds</p>.<br/><br/>',
         timer: timeleft,
+        showConfirmButton: false,
         didOpen: () => {
             const content = Swal.getHtmlContainer()
             const $ = content.querySelector.bind(content)
 
-            Swal.showLoading()
+            //Swal.showLoading()
             timerInterval = setInterval(() => {
                 Swal.getHtmlContainer().querySelector('strong')
                     .textContent = (Swal.getTimerLeft() / 1000)
