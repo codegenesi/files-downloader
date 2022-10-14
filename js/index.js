@@ -18,7 +18,7 @@ $("#download").click(function () {
     document.getElementById("download").style.display = "none"; // hide the download button
 
     Swal.fire({
-        title: 'Getting files ready!',
+        title: '<h1> Getting files ready...</h1>',
         html:
             '<p>The download starts in <strong></strong> seconds</p>.<br/><br/>',
         timer: timeleft,
